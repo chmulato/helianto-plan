@@ -201,6 +201,35 @@ public class Report
     @Transient
 	private char favourite = 'U';
 
+    
+    /**
+	  * Merger.
+	  * 
+	  * @param command
+  	  **/
+   		public Report merge(Report command) {
+   			setReportCode(command.getReportCode());
+   			setPrefix(command.getPrefix());
+   			setSummary(command.getSummary());
+   			setNature(command.getNature());
+   			setReportContent(command.getReportContent());
+   			setReportFileContentType(command.getReportFileContentType());
+   			setTaskDesc(command.getTaskDesc());
+   			setForecastWork(command.getForecastWork());
+   			setActualWork(command.getActualWork());
+   			setRelativeSize(command.getRelativeSize());
+   			setFollowUpOrder(command.getFollowUpOrder());
+   			setPresentationOrder(command.getPresentationOrder());
+   			setTraceability(command.getTraceability());
+   			setRequestType(command.getRequestType());
+   			setActionType(command.getActionType());
+   			setPhase(command.getPhase());
+   			setParsedContent(command.getParsedContent());
+   			setWorkflowPhase(command.getWorkflowPhase());
+   			setMainRequirementSequence(command.getMainRequirementSequence());
+   			return this;
+   		}
+    
     /** 
      * Default constructor.
      */
