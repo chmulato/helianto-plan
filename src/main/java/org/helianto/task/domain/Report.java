@@ -175,8 +175,8 @@ public class Report
     
     @Transient
     private Integer partnerId = 0;
-    
-    @JsonIgnore
+
+	@JsonIgnore
     @ManyToOne
     @JoinColumn(name="categoryId", nullable=true)
     private Category category;
@@ -538,7 +538,7 @@ public class Report
     public String getPrefix() {
 		return prefix;
 	}
-//    @Transient
+    
     protected StringBuilder getPrefixAsBuilder() {
     	if (getPrefix()!= null && !getPrefix().equals("")) {
     		return new StringBuilder(getPrefix()).append(" ");
@@ -552,7 +552,6 @@ public class Report
     /**
      * <<Transient>> Permite subordinar o prefixo do relatório a uma condição externa.
      */
-//    @Transient
     protected String getInternalPrefix() {
     	if (getSeries()!=null) {
     		this.prefix=getSeries().getFolderCode();
@@ -1261,27 +1260,40 @@ public class Report
     public void setMainRequirementSequence(int mainRequirementSequence) {
 		this.mainRequirementSequence = mainRequirementSequence;
 	}
+
+    public Integer getPartnerId() {
+		return partnerId;
+	}
+	public void setPartnerId(Integer partnerId) {
+		this.partnerId = partnerId;
+	}
+
+	public Integer getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public void setReporterId(Integer reporterId) {
+		this.reporterId = reporterId;
+	}
     
-    /**
-     * Conveniente para associar o principal documento a partir da lista.
-     * 
-     * @param mainRequirementList
-     */
-    @JsonIgnore
-    //TODO
-//    public void setMainRequirement(List<DocumentRequirement> mainRequirementList) {
-//    	if (getMainRequirementSequence()>=0 && getMainRequirementSequence() < mainRequirementList.size()) {
-//    		setMainRequirement(mainRequirementList, getMainRequirementSequence());
-//    	}
-//	}
-    
-    /**
-     * Conjunto de acompanhamentos.
-     */
-    public Set<FollowUp> getFollowUps() {
-        return this.followUps;
-    }
-    public void setFollowUps(Set<FollowUp> followUps) {
+	public List<FollowUp> getFollowUpList() {
+		return followUpList;
+	}
+
+	public void setFollowUpList(List<FollowUp> followUpList) {
+		this.followUpList = followUpList;
+	}
+
+	/**
+	 * Conjunto de acompanhamentos.
+	 */
+	public Set<FollowUp> getFollowUps() {
+	    return this.followUps;
+	}
+	public void setFollowUps(Set<FollowUp> followUps) {
         this.followUps = followUps;
     }
     
