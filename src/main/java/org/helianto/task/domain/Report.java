@@ -101,10 +101,12 @@ public class Report
     
     private int runState;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="reporterId", nullable=true)
     private Identity reporter;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="assesseeId", nullable=true)
     private Identity assessee;
@@ -118,14 +120,17 @@ public class Report
     @Column(length=512)
     private String taskDesc = "";
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="reportFolderId")
     private ReportFolder series;
     
-    @Column(length=20)
+    @Transient
+    private int reportFolderId;
+
+	@Column(length=20)
     private String nature = "";
     
-    @Embedded
     private UploadableContent reportContent;
     
     @Column(length=128)
@@ -160,10 +165,12 @@ public class Report
     @Column(length=512)
     private String parsedContent = "";
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="partnerId", nullable=true)
     private Partner partner;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="categoryId", nullable=true)
     private Category category;
@@ -741,6 +748,13 @@ public class Report
     		setEntity(series.getEntity());
     	}
 		this.series = series;
+	}
+
+    public int getReportFolderId() {
+		return reportFolderId;
+	}
+	public void setReportFolderId(int reportFolderId) {
+		this.reportFolderId = reportFolderId;
 	}
     
     /**
