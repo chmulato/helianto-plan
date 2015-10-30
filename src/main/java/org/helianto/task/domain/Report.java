@@ -31,7 +31,6 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.Embedded;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -761,6 +760,7 @@ public class Report
      * <<Transient>> Conveniente para exibir a pasta que guarda este documento.
      */
 //    @Transient
+    @JsonIgnore
     public ReportFolder getReportFolder() {
     	return this.series;
     }
@@ -786,6 +786,7 @@ public class Report
      * <<Transient>> Conveniente recuperar os membros da equipe.
      */
 //    @Transient
+    @JsonIgnore
     public Set<StaffMember> getStaffMembers() {
     	if (getReportFolder()!=null) {
     		return getReportFolder().getStaff();
@@ -823,6 +824,7 @@ public class Report
      * Conveniente para determinar se pode ser planejado pela fase.
      */
 //    @Transient
+    @JsonIgnore
     public boolean isScheduleByPhaseEnabled() {
     	if (getSeries()!=null && getSeries().getPhases()!=null && getSeries().getPhases().size()>0) {
     		return true;
@@ -834,6 +836,7 @@ public class Report
      * Conveniente para listar as fases em ordem.
      */
 //    @Transient
+    @JsonIgnore
     public List<ReportPhase> getPhases() {
     	List<ReportPhase> phases = new ArrayList<ReportPhase>();
     	if (isScheduleByPhaseEnabled()) {
@@ -1214,6 +1217,7 @@ public class Report
      * Fase como uma instância da classe Phase.
      */
 //    @Transient
+    @JsonIgnore
     public ReportPhase getPhaseAsObject() {
     	if (isScheduleByPhaseEnabled()) {
     		for (ReportPhase phase: getSeries().getPhases()) {
@@ -1229,6 +1233,7 @@ public class Report
      * Categoria.
      * @see {@link Partner}
      */
+    @JsonIgnore
 	public Category getCategory() {
 		return getInternalCategory();
 	}
@@ -1240,6 +1245,7 @@ public class Report
 	 * <<Transient>> Verdadeiro se a categoria é da pasta.
 	 */
 //	@Transient
+    @JsonIgnore
 	public boolean isFolderCategoryEnabled() {
 		return getReportFolder()!=null && getReportFolder().isCategoryEnabled();
 	}
@@ -1252,6 +1258,7 @@ public class Report
 	 * </p>
 	 */
 //	@Transient
+    @JsonIgnore
 	protected Category getInternalCategory() {
 		if (isCategoryOverrideAllowed()) {
 			return category;
@@ -1266,6 +1273,7 @@ public class Report
 	 * <<Transient>> Verdadeiro se a categoria existe.
 	 */
 //	@Transient
+    @JsonIgnore
 	public boolean isCategoryEnabled() {
 		return getCategory()!=null;
 	}
@@ -1274,6 +1282,7 @@ public class Report
 	 * <<Transient>> Verdadeiro se pode substituir a categoria da pasta.
 	 */
 //	@Transient
+    @JsonIgnore
 	public boolean isCategoryOverrideAllowed() {
 		return isFolderCategoryEnabled() && getReportFolder().isCategoryOverrideAllowed();
 	}
@@ -1292,6 +1301,7 @@ public class Report
      * Parceiro.
      * @see {@link Partner}
      */
+    @JsonIgnore
 	public Partner getPartner() {
 		return partner;
 	}
@@ -1303,6 +1313,7 @@ public class Report
 	 * <<Transient>> Propriedades derivadas da categoria.
 	 */
 //	@Transient
+    @JsonIgnore
 	public Map<String, Object> getCustomPropertiesAsMap() {
 		if (isCategoryEnabled()) {
 			return getCategory().getCustomPropertiesAsMap();
@@ -1314,6 +1325,7 @@ public class Report
      * <<Transient>> Lista de responsabilidades convertida em matriz.
      */
 //    @Transient
+    @JsonIgnore
     public String[] getCustomWorkflowRolesAsArray() {
     	if (isCategoryEnabled() && getCategory().isWorkflowEnabled()) {
     		return getCategory().getCustomWorkflowRolesAsArray();
@@ -1325,6 +1337,7 @@ public class Report
      * <<Transient>> Lista de responsabilidades convertida em mapa.
      */
 //    @Transient
+    @JsonIgnore
     public Map<String, String> getCustomWorkflowRolesAsMap() {
     	if (isCategoryEnabled() && getCategory().isWorkflowEnabled()) {
     		return getCategory().getCustomWorkflowRolesAsMap();
@@ -1337,6 +1350,7 @@ public class Report
      * na lista de aprovação, ou nulo, se não houver.
      */
 //    @Transient
+    @JsonIgnore
     public String getNextWorkflowRole() {
     	if (isCategoryEnabled() && getCategory().isWorkflowEnabled()) {
     		if (!isWorkflowClosable()) {
@@ -1404,7 +1418,6 @@ public class Report
      * @param mainRequirementList
      * @param mainSequence
      */
-    @JsonIgnore
 // TODO  
 //    public void setMainRequirement(List<DocumentRequirement> mainRequirementList, int mainSequence) {
 //    	for (DocumentRequirement mainRequirement: mainRequirementList) {
@@ -1430,7 +1443,6 @@ public class Report
      * 
      * @param mainRequirementList
      */
-    @JsonIgnore
     //TODO
 //    public void setMainRequirement(List<DocumentRequirement> mainRequirementList) {
 //    	if (getMainRequirementSequence()>=0 && getMainRequirementSequence() < mainRequirementList.size()) {
@@ -1441,6 +1453,7 @@ public class Report
     /**
      * Conjunto de acompanhamentos.
      */
+    @JsonIgnore
     public Set<FollowUp> getFollowUps() {
         return this.followUps;
     }
@@ -1452,6 +1465,7 @@ public class Report
 	 * <<Transient>> Lista ordenada de acompanhamentos.
 	 */
 //    @Transient
+    @JsonIgnore
     public List<FollowUp> getFollowUpOrderedList() {
         return this.followUpList;
     }
@@ -1463,6 +1477,7 @@ public class Report
      * <<Transient>> Lista descendentes.
      * 
      */
+    @JsonIgnore
     public List<Report> getChildren() {
     	return this.children;
     }
